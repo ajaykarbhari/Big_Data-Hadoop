@@ -1,0 +1,49 @@
+Redhat Machine:
+
+Step:1
+Go to cluster add service
+select kms java key store
+select host  where you want to install kms service
+select use your own kms-acts-xml file
+Add following content
+<property>
+<name>key.acl.vss.ALL</name>
+<value>hdfs</value>
+<description>
+</description>
+</property>
+
+Click Continue
+Click continue
+Click finish
+Restart hdfs sell service
+
+Step:2
+Connect to instance 
+sudo su -
+yum -y install openssl-devel   For ubuntu-: apt-get install libssl-dev       
+hadoop key create vss (vss has not been created)
+su hdfs
+hadoop key create vss
+hadoop key list
+then create a directory in hdfs which we want to encrypte
+hadoop fs-mkdir /vss (unknown command)
+hdfs crypto -CreateZone -keyname vss -path /vss(Added Encryption Zone)
+hdfs dfs -ls /
+hdfs dfs -chmod 777 /vss
+Go to GUI click Java keystore than select action than select refetresh key managment server command
+click on configuration tan search ACL
+exit
+ls(see cloudear -manager-service-installer.bin)
+sudo cp cloudear -manager-service-installer.bin /opt
+sudo su -
+su hdfs
+hdfs dfs -put /opt/cloudear-manager-service-installer.bin /vss
+hdfs dfs -ls /vss
+hdfs dfs -cat /vss/cloudera-manager-service-installer.bin /vss
+exit
+sudo su -
+hdfs dfs -cat /vss/cloudera-manager-service-installer.bin /vss
+
+
+ 
